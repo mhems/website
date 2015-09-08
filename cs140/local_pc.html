@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../stylesheet.css"></link>
+    <title>Working with Windows</title>
+  </head>
+
+  <body>
+    <h1 id="main_title">Working locally with Windows</h1>
+    <p>So you want to work on your Windows laptop? This should help you to get
+      up and running on a Windows environment to work on coursework
+    </p>
+    <p>There are a few options you can choose between to work on assignments for
+      this course. What you really want to be able to do is edit code, run code,
+      and use git to track and submit your work.
+    </p>
+
+    <h2>Option 1: Remotely access the LNG computers</h2>
+    <p>See my <a href="remote_access.html">page</a> on your options for this</p>
+    <p>This option has the benefit of using an already configured environment that
+      has everything you need. However, everything will be remote which introduces
+      some hoops to jump through if you want to edit files locally (that is, without
+      an in-terminal editor)
+    </p>
+    <p><b>Installation</b>: See my <a href="remote_access.html">page</a> to install PuTTY</p>
+
+    <h2>Option 2: Emulate a Linux environment via Cygwin</h2>
+    <p>Cygwin is an application for Windows so users can "Get that Linux feeling
+      on Windows". The application consists of a Linux-like terminal with many Linux
+      commands and programs ready to go out of the box. You can access your Windows
+      file structure with <code>cd /cygdrive/c</code> which will put you as if you
+      were in your C drive. This option allows you to use the same command set as
+      you would in the lab as well as being able to edit files locally. That being
+      said, no tool is perfect and cygwin does have some quirks from its nature of
+      being an emulator and not the real deal.
+    </p>
+    <p><b>Installation</b>: Download <a href="https://cygwin.com/install.html">here</a>.
+      Once downloaded, launch the installation wizard. Eventually you will get to a
+      screen that will ask you to check those programs you want to install on top of
+      cygwin. You will want to include Java and Git for now. You can always go back
+      to add others.
+    </p>
+
+    <h2>Option 3: Use a Windows command prompt</h2>
+    <p>Windows has a terminal that you can use, with similar command functionality,
+      albeit under different names. There is also Windows PowerShell which is slightly
+      more user-friendly if you'd like to learn and use that instead. Powershell is
+      shipped with Windows >=8. This option requires you to download Java 8 and
+      Git for Windows as well as learn the Windows terminal alongside that of Linux.
+      Once these items are installed, you're workflow should be fairly similar to
+      that of in the lab.
+    </p>
+    <p><b>Installation</b>:
+      <ul>
+        <li>Download Java 8</li>
+        <ul>
+          <li>Follow Professor Lander's
+            <a href="http://bingweb.binghamton.edu/~lander/cs140/HomePageFiles/info.html#Software">directions</a>
+          </li>
+          <li>Once correctly setup, go into the terminal and enter commands
+            <code> java -version</code> and <code>javac -version</code>.
+            Make sure you see version numbers of the form 1.8.X_XX for both commands.
+          </li>
+        </ul>
+        <li>Download Git for Windows <a href="http://git-scm.org/">here</a></li>
+        <li>[OPTIONAL] Download <a href="http://www.sublimetext.com/">Sublime</a> and/or
+          <a href="https://notepad-plus-plus.org/">Notepad++</a> text editors.</li>
+      </ul>
+      </p>
+  </body>
+</html>

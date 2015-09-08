@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../stylesheet.css"></link>
+  <title>Remote Access</title>
+</head>
+
+<body>
+  <h1 id="main_title">Guide to remotely accessing LNG computers</h1>
+  <h3>Note:</h3>
+  <p>
+    Since you are remotely accessing the system from the command line, you will only be able
+    to use the command line and as such won't be able to open a gedit window or run other 
+    standalone applications like Eclipse. Thus, the command <code>gedit myFile.txt &</code>
+    or even <code>gedit myFile.txt</code> will give an error since an application window can't
+    open from PuTTY and gedit has no equivalent command-line program. This is a motivating factor
+    for using in-terminal editing programs like Vim, Emacs, and Nano, which would allow you to
+    edit from inside the terminal. If you would like to edit your files using an editor or
+    program of your choice, you can <i>ftp</i> the files to your local computer, edit them,
+    and then <i>ftp</i> the files back to the lab computers. To get an <i>ftp</i> client,
+    download <i>PSFTP</i> along with PuTTY. If on Unix/Linux/Mac, you can simply use the
+    <code>ftp</code> or <code>scp</code> commands in the terminal.
+  </p>
+
+  <h2>Unix/Linux/Mac Users:</h2>
+  <ol>
+    <li>Open up a terminal</li>
+    <li>Run the command <code>ssh <i>username</i>@bingsuns2.cc.binghamton.edu</code></li>
+    <li>Enter your PODS password and press Enter</li>
+    <li>You should now be able to <code>ls</code> and see your lab file directory</li>
+    <li>When you are done, run <code>exit</code> to end your session and return to your computer</li>
+  </ol>
+  <h2>PC Users:</h2>
+  <ol>
+    <li>First time only: download <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a></li>
+    <ul>
+      <li>For just the PuTTY application itself (all you really need), download just <i>putty.exe</i> and store it in a safe place with a shortcut on your Desktop</li>
+      <li>You can alternatively download <i>putty-0.xx-installer.exe</i> which will download the PuTTY suite</li>
+    </ul>
+    <li>Launch PuTTY</li>
+    <li>Type <i>username</i>@bingsuns2.cc.binghamton.edu into the <i>Host Name</i> text box</li>
+    <li>Ensure <i>SSH</i> is checked as the <i>Connection type</i></li>
+    <li>Select the <i>Open</i> button at the bottom right to launch your session</li>
+    <li>Enter your PODS password and press Enter</li>
+    <li>You should now be able to <code>ls</code> and see your lab file directory</li>
+    <li>When you are done, run <code>exit</code> to end your session and close PuTTY</li>    
+  </ol>
+</body>
+
+</html>

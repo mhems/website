@@ -1,0 +1,24 @@
+
+body {
+    font-size: 14pt;
+    background: white;
+}
+
+h1, h2, h3 {
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+code {
+    color: red;
+}
+
+#main_title {
+    font-size: 28pt;
+    color: blue;
+    border-bottom: medium red solid;
+}
+
+#main_heading {
+    color: blue;
+    font-size: 16pt;
+}
