@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="../stylesheet.css"></link>
+  <title>Git Basics</title>
+</head>
+
+<body>
+  <h1 id="main_title">Git Basics to submit your code</h1>
+
+  <h2>Assuming you haven't pushed or cloned (starting from scratch)</h2>
+  <h3>Create a new git repository: <code>git init</code></h3>
+  <p>This should not trigger any errors</p>
+
+  <h3>Add the files you want to submit: <code>git add FILE1 FILE2 ...</code></h3>
+  <p>This should not trigger any errors</p>
+  <p>Alternatively, you can run <code>git add .</code> which will add every file in the current directory</p>
+  <p>Or you can run, <code>git add *.java</code> which will add every file that ends with the java extension</p>
+  <p>Note: It is not necessary for you to submit .class files or .java~ files.
+    The former is the executable byte code that we can obtain from compiling your source code.
+    The latter are backup files that editors make for your convenience.
+    Do not submit your files in an archive such as tar, rar, or zip.</p>
+  <p>You can confirm the files you wanted to add are indeed added by running <code>git status</code>. If you were
+    successful in adding them, the output should list those files as "Changes ready to be committed"</p>
+
+  <h3>Commit your added files: <code>git commit -m "Ready to submit"</code></h3>
+  <p>The message between the double quotes should be a message describing what your commit entails</p>
+  <p>This may trigger an error that starts with "Tell me who you are". To rectify this, run the two commands:
+  <p><code>git config --global user.name  "Your Name"</code></p>
+  <p><code>git config --global user.email "your bing email"</code></p>
+  <p>and re-run the commit command. You should only have to do this once per machine.</p>
+  </p>
+  <p>If all succeeded, your output should say "X file(s) changed, Y insertions, Z deletions" and then a list of
+    items that look like "create mode NNN file"</p>
+
+  <h3>Sync your commit to gitlab:</h3>
+  <h3><code>git push https://gitlab.com/bu-cs140-admins/PROJECT_NAME-YOUR_PODS_USERID.git master</code></h3>
+  <p>where PROJECT_NAME is the name of the project (e.g. assignment02, lab02, exampractice) and
+    YOUR_PODS_USERID is your PODS user name</p>
+  <p>Note you will need to enter your gitlab user id and your gitlab password</p>
+  <p>This is the crucial step that needs to succeed for your submission to be valid.</p>
+  <p>If all went well, you should see a message whose last line ends in "master -> master"</p>
+  <p>You can confirm this by pointing your browser to https://gitlab.com/bu-cs140-admins/PROJECT_NAME-YOUR_PODS_USERID
+    and navigating to Files and checking the files you want to upload are there with an appropriate timestamp.</p>
+  <p>There are several errors you could get with this command, the most likely saying something like "fatal ... can't find refspec ..."</p>
+  <p>Check that the url is properly formed and re-enter your password carefully.</p>
+  <p>If this does not correct the error, post to gitlab with the command you're trying to execute and the full error message you get</p>
+
+  <h2>Assuming you have already pushed at least once and want to upload changes to the same place</h2>
+  <p>We can skip <code>git init</code> since its already initialized</p>
+  <p>Start with the <code>git add</code> step outlined above to add the files you've changed.</p>
+  <p>Then <code>git commit ...</code> and <code>git push ...</code> as outlined above</p>
+
+  <h2>Assuming you would like to grab code from gitlab in a fresh directory</h2>
+  <h3>Clone the repository to your local machine:</h3>
+  <h3><code> git clone https://gitlab.com/bu-cs140-admins/PROJECT_NAME-YOUR_PODS_USERID.git</code></h3>
+  <p>You now have your files to examine, edit, and re-submit if you choose, using the commands outlined above</p>
+
+</body>
