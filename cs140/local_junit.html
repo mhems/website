@@ -13,16 +13,21 @@
     under the hood.</p>
   <p>So the good news is, we can still get the benefits of JUnit
     outside of Eclipse (i.e. on the command line)</p>
-  <p>Download <a href="install_junit.sh">this</a> simple script to configure your linux environment to be able to run JUnit. Note that this is (for now) only for a linux environment, possibly Mac, certainly not Windows.</p>
+  <p>Download <a href="install_junit.sh">this</a> simple script to configure your linux environment to be able to run JUnit.</p>
+  <p>Note that this was written and tested on a linux environment. It should work on Mac or git-bash on Windows.</p>
   <ol>
-    <li>Download the script (called install_junit.sh)</li>
+    <li>Download the script (called <a href="install_junit.sh">install_junit.sh</a>)</li>
+    <ul><li>It doesn't matter where you download or run the script</li></ul>
     <li>Make the script runnable with <code>chmod u+x install_junit.sh</code></li>
     <li>Invoke the script with <code>./install_junit.sh</code></li>
     <ul><li>Once the script is run, you won't need the script again</li></ul>
     <li>Update these changes with <code>source ~/.bashrc</code></li>
-    <li>After invoking the script, all should be set up with minor changes to your build process:</li>
+  </ol>
+    After the above steps, all should be set up with minor changes to your build process
+  <ul>
     <li>You still compile with <code>javac -d . *.java</code> or whichever files you want to (re)compile</li>
     <li>To run a JUnit class, run <code>junit PKG_NAME.CLASS_NAME</code></li>
     <ul><li>e.g. <code>junit assignment06.TestGPA</code></li></ul>
     <li>To run a normal class with a main method, its the same as before, <code>javac -cp . PKG_NAME.CLASS_NAME</code></li>
+  </ul>
 </body>
