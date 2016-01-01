@@ -1,1 +1,1 @@
-Live at [http://cs.binghamton.edu/~mhems1/]
+Live at http://cs.binghamton.edu/~mhems1
