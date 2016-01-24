@@ -26,3 +26,8 @@ code {
     color: blue;
     font-size: 16pt;
 }
+
+#footer {
+    font-size: 12pt;
+    border-top: medium grey solid;
+}
