@@ -28,6 +28,8 @@ print(sys.argv[1]) # argv[0] is the invoking program ('python')
 hello world
 ```
 
+---
+
 The second method is compilation. Languages like C, C++, and Java are
 all compiled languages, meaning a compiler translates the source
 code. A compiler takes a source program as input and outputs an

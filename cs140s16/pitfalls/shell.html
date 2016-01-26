@@ -49,7 +49,99 @@
 <a id="user-content-the-shell" class="anchor" href="#the-shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Shell</h1>
 
 <h2>
-<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>?</h2>
+<a id="user-content-what-fresh-shell-is-this" class="anchor" href="#what-fresh-shell-is-this" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What fresh shell is this?</h2>
+
+<p>The shell is a powerful tool that lets its users execute commands that
+interface with the operating system. From the shell you can execute
+already written tools as well as write executable scripts in the
+shell's language. This is useful for automating frequently repeated
+tasks. <code>java</code> is one such tool, it runs Java programs.</p>
+
+<h2>
+<a id="user-content-shell-basics" class="anchor" href="#shell-basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell Basics</h2>
+
+<p>The canonical <em>Hello World</em> in the bash shell language:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>hello world<span class="pl-pds">'</span></span></pre></div>
+
+<p>Shell commands are often written with a <code>&gt;</code> or <code>$</code> prefix to represent
+the prompt. The user does not type the prompt character(s).</p>
+
+<p>A great deal of tasks involve inspecting and manipulating the
+filesystem. Some commands that do this are:</p>
+
+<ul>
+<li>
+<code>ls [FILE...]</code> - list info about FILEs, or current directory if none given</li>
+<li>
+<code>mkdir DIR...</code> - make directory(s)</li>
+<li>
+<code>rm FILE...</code> - remove file(s)</li>
+<li>
+<code>cp SRC DEST</code> - copy SRC to DEST</li>
+<li>
+<code>mv SRC DEST</code> - move SRC to DEST</li>
+<li>
+<code>cd DIR</code> - change directory to DIR, or home directory if none given</li>
+</ul>
+
+<p>When denoting a command's usage, items within square braces means
+those items are optional. The ellipsis means a variable number. Since
+commands tends to have a lot of options and long formats, commands
+typically provide a <strong>man</strong>ual page documenting usage. To get a tool's
+documentation, type <code>man</code>, followed by that command. The man page is
+brought up in what is called a pager, a tool that paginates long
+output within the terminal. Arrow keys can be used to scroll, <code>Home</code>
+key to go to top, <code>End</code> key to go to bottom, and <code>/</code> to search for a
+string.</p>
+
+<hr>
+
+<p>Since one of the goals of shell scripting language is terseness
+(expressing commands in few characters), shells typically provide
+several characters with special meanings, several of which we'll use
+in this class.</p>
+
+<ul>
+<li>
+<code>.</code> - stands for the current directory. Hence <code>ls</code> and <code>ls .</code> output
+the same thing</li>
+<li>
+<code>..</code> - stands for the parent directory, the directory one level
+above the one you're currently in (.)</li>
+<li>
+<code>~</code> - stands for a user's home directory - the top-level directory
+all of a user's files will fall under</li>
+<li>
+<code>*</code> - is the wildcard character that matches any character</li>
+<li>
+<code>&amp;</code> - execute the command in a background process, so control
+returns to the terminal</li>
+</ul>
+
+<p>Putting this together, what the following
+command would do?</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> cp <span class="pl-k">~</span>/<span class="pl-k">*</span>.txt ..</pre></div>
+
+<p>This copies all files under the home directory that end in the
+extension <code>.txt</code> to the parent directory, that is, the directory above
+our current directory.</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> gedit Hello.java <span class="pl-k">&amp;</span>
+[1] 29988
+<span class="pl-k">&gt;</span> javac -d <span class="pl-c1">.</span> Hello.java</pre></div>
+
+<p>This calls the <code>gedit</code> program, a simple Linux text editor, and tells
+it to open the <code>Hello.java</code> program. The <code>&amp;</code> tells the shell to
+execute this program in a background process so the user can go on
+entering commands without waiting for the program to complete. It
+outputs the process id (pid) in case you later need to kill the
+process. <code>&amp;</code> is especially useful for text editing programs that open
+a stand-alone application window (GUI) so the file can remain open for
+editing while you compile and run from the same terminal.</p>
+
+<p><code>javac</code> and <code>java</code> usage is described in the <a href="compiling.html">compiling page</a></p>
 
               </div>
             </div>
