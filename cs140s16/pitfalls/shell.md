@@ -22,6 +22,7 @@ filesystem. Some commands that do this are:
 
 * `ls [FILE...]` - list info about FILEs, or current directory if none given
 * `mkdir DIR...` - make directory(s)
+* `rmdir DIR...` - remove directory(s)
 * `rm FILE...` - remove file(s)
 * `cp SRC DEST` - copy SRC to DEST
 * `mv SRC DEST` - move SRC to DEST
@@ -72,12 +73,14 @@ our current directory.
 ```
 
 This calls the `gedit` program, a simple Linux text editor, and tells
-it to open the `Hello.java` program. The `&` tells the shell to
-execute this program in a background process so the user can go on
-entering commands without waiting for the program to complete. It
-outputs the process id (pid) in case you later need to kill the
-process. `&` is especially useful for text editing programs that open
-a stand-alone application window (GUI) so the file can remain open for
-editing while you compile and run from the same terminal.
+it to open the `Hello.java` program. To create a file, simply provide
+the filename you want to `gedit`, it will create and open that file
+for you to edit. The `&` tells the shell to execute this program in a
+background process so the user can go on entering commands without
+waiting for the program to complete. It outputs the process id (pid)
+in case you later need to kill the process. `&` is especially useful
+for text editing programs that open a stand-alone application window
+(GUI) so the file can remain open for editing while you compile and
+run from the same terminal.
 
 `javac` and `java` usage is described in the [compiling page](compiling.html)

@@ -51,6 +51,79 @@
 <h2>
 <a id="user-content-how-to-walk-and-chew-gum-at-the-same-time" class="anchor" href="#how-to-walk-and-chew-gum-at-the-same-time" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to walk and chew gum at the same time</h2>
 
+<p>Java is statically typed, meaning all variables are declared up front
+to be a certain type that cannot change during execution. This differs
+from Python, a dynamically typed language, where a variable can take
+on different types throughout a program's execution. While poor
+practice, this is valid Python:</p>
+
+<div class="highlight highlight-source-python"><pre>a <span class="pl-k">=</span> <span class="pl-c1">5</span>
+a <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>hello world<span class="pl-pds">"</span></span></pre></div>
+
+<p>But in Java, this has no hope of compiling. Since a variable must
+declare its type up-front, Java distinguishes between declaration and
+initialization. In Python, initialization <em>is</em> declaration.</p>
+
+<hr>
+
+<p>In Java, you would declare a variable named <code>myInt</code>, of <code>int</code>
+(integer) type like so:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> myInt;</pre></div>
+
+<p>The above declaration does just that, it declares your intention to
+use a variable of type <code>int</code>. It does not necessarily initialize it to
+a value so we must make sure all are variables are initialized. The
+simplest way to ensure this is to initialize the variable at the point
+of declaration.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> myInt <span class="pl-k">=</span> <span class="pl-c1">10</span>;</pre></div>
+
+<p>or</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> myInt;
+myInt <span class="pl-k">=</span> <span class="pl-c1">10</span>;</pre></div>
+
+<p>Once you declare a variable, you refer to it by name, you only mention
+its type at declaration.</p>
+
+<p>A common compilation error is given for something like the following:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> i;
+<span class="pl-c">// ... A bunch of code ...</span>
+<span class="pl-k">if</span> (i <span class="pl-k">&gt;</span> <span class="pl-c1">10</span>) {
+    <span class="pl-c">// handle case when i is large ...</span>
+}</pre></div>
+
+<pre><code>error: variable i might not have been initialized
+</code></pre>
+
+<hr>
+
+<p>Earlier I mentioned that a declared variable might not necessarily be
+initialized just because you declared it. There are two cases to
+consider. When a variable is declared at class scope, it's ok to leave
+a variable uninitialized, the compiler will implicitly initialize it
+to its "zero-value". However, when a variable is declared within a
+function, as is more common, it is not implicitly initialized. A
+compile error will be given for an uninitialized variable, as we saw
+above.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">AClass</span> {
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">int</span> <span class="pl-c1">COUNT</span>; <span class="pl-c">// gets 0</span>
+    <span class="pl-k">public</span> <span class="pl-k">char</span> letter; <span class="pl-c">// gets 0</span>
+    <span class="pl-k">public</span> <span class="pl-k">double</span> num; <span class="pl-c">// gets 0.0</span>
+    <span class="pl-k">public</span> <span class="pl-k">boolean</span> status; <span class="pl-c">// gets false</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Object</span> o; <span class="pl-c">// gets null</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
+        <span class="pl-k">int</span> i;
+        <span class="pl-k">if</span> (i <span class="pl-k">&gt;</span> <span class="pl-c1">10</span>) { <span class="pl-c">// ERROR, i is at function level, never initialized</span>
+            <span class="pl-c">// ...</span>
+        }
+    }
+}</pre></div>
+
               </div>
             </div>
           </div>

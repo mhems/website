@@ -76,6 +76,8 @@ filesystem. Some commands that do this are:</p>
 <li>
 <code>mkdir DIR...</code> - make directory(s)</li>
 <li>
+<code>rmdir DIR...</code> - remove directory(s)</li>
+<li>
 <code>rm FILE...</code> - remove file(s)</li>
 <li>
 <code>cp SRC DEST</code> - copy SRC to DEST</li>
@@ -133,13 +135,15 @@ our current directory.</p>
 <span class="pl-k">&gt;</span> javac -d <span class="pl-c1">.</span> Hello.java</pre></div>
 
 <p>This calls the <code>gedit</code> program, a simple Linux text editor, and tells
-it to open the <code>Hello.java</code> program. The <code>&amp;</code> tells the shell to
-execute this program in a background process so the user can go on
-entering commands without waiting for the program to complete. It
-outputs the process id (pid) in case you later need to kill the
-process. <code>&amp;</code> is especially useful for text editing programs that open
-a stand-alone application window (GUI) so the file can remain open for
-editing while you compile and run from the same terminal.</p>
+it to open the <code>Hello.java</code> program. To create a file, simply provide
+the filename you want to <code>gedit</code>, it will create and open that file
+for you to edit. The <code>&amp;</code> tells the shell to execute this program in a
+background process so the user can go on entering commands without
+waiting for the program to complete. It outputs the process id (pid)
+in case you later need to kill the process. <code>&amp;</code> is especially useful
+for text editing programs that open a stand-alone application window
+(GUI) so the file can remain open for editing while you compile and
+run from the same terminal.</p>
 
 <p><code>javac</code> and <code>java</code> usage is described in the <a href="compiling.html">compiling page</a></p>
 
