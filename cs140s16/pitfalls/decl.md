@@ -73,7 +73,7 @@ above.
 ```java
 public class AClass {
     public static int COUNT; // gets 0
-    public char letter; // gets 0
+    public char letter; // gets '\0'
     public double num; // gets 0.0
     public boolean status; // gets false
     public Object o; // gets null
