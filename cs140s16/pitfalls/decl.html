@@ -124,6 +124,44 @@ above.</p>
     }
 }</pre></div>
 
+<hr>
+
+<p>Since every variable in Java is declared, it is not always necessary
+to use the <code>this</code> keyword to refer to a class's member variable. On
+the other hand, it does no damage to include the <code>this</code>, so when in
+doubt, include it. <code>this</code> is necessary when you have a local variable
+within a function that has the same name as a member variable - then
+you need the <code>this</code> to disambiguate which variable you mean. Some
+people write constructors like this:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Person</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> name;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> age;
+
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>(<span class="pl-smi">String</span> <span class="pl-v">name</span>, <span class="pl-k">int</span> <span class="pl-v">age</span>) {
+        <span class="pl-v">this</span><span class="pl-k">.</span>name <span class="pl-k">=</span> name;
+        <span class="pl-v">this</span><span class="pl-k">.</span>age <span class="pl-k">=</span> age;
+    }
+}</pre></div>
+
+<p>In the above code, since the constructor parameters are named the same
+as the member variables, we must use <code>this</code> on the left hand side to
+indicate we want the parameters to be assigned to the member
+variables. Had we left off the <code>this</code>, the member variables would
+never be given any value. If you name the function variables
+differently, as some people choose to do, then you do not need the
+<code>this</code> since it is clear what name refers to what variable.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Person</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">String</span> name;
+    <span class="pl-k">private</span> <span class="pl-k">int</span> age;
+
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>(<span class="pl-smi">String</span> <span class="pl-v">name_</span>, <span class="pl-k">int</span> <span class="pl-v">age_</span>) {
+        name <span class="pl-k">=</span> name_;
+        age <span class="pl-k">=</span> age_;
+    }
+}</pre></div>
+
               </div>
             </div>
           </div>

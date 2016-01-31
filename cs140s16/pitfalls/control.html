@@ -51,6 +51,271 @@
 <h2>
 <a id="user-content-taming-your-code" class="anchor" href="#taming-your-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Taming your code</h2>
 
+<p>A large aspect of a computer language is what control constructs it
+offers. In other ways, what ways does a programmer have available to
+specify conditional execution.</p>
+
+<p>The basic control constructs offered by Java include <code>if</code>, <code>else</code>,
+<code>for</code>, <code>while</code>, <code>do/while</code>, and <code>switch</code>. Within the looping
+constructs <code>while</code>, <code>do/while</code>, and <code>for</code>, <code>continue</code> and <code>break</code> are
+also available. We will step through how to each of these.</p>
+
+<h2>
+<a id="user-content-branching-constructs" class="anchor" href="#branching-constructs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Branching constructs</h2>
+
+<h3>
+<a id="user-content-ifelse" class="anchor" href="#ifelse" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>if/else</h3>
+
+<p>The simplest control construct is that of the <code>if</code>/<code>else</code>. This offers
+the skeleton: if some condition is true, execute some portion of
+code. Optionally, if this condition was false, execute a different
+portion of code.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">if</span> (num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>The number <span class="pl-pds">"</span></span> <span class="pl-k">+</span> num <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> is even!<span class="pl-pds">"</span></span>);
+} <span class="pl-k">else</span> {
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>The number <span class="pl-pds">"</span></span> <span class="pl-k">+</span> num <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span> is odd!<span class="pl-pds">"</span></span>);
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">if</span> (num <span class="pl-k">&gt;</span> <span class="pl-c1">100</span>) {
+    num <span class="pl-k">=</span> <span class="pl-c1">100</span>;
+}</pre></div>
+
+<p>Sometimes, new programmers want to only execute a portion of code if
+the condition is false, i.e. they only really need the <code>else</code>
+block. This leads to bad code like</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">if</span> (num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
+    <span class="pl-c">// Do nothing, I don't need to do anything if num is even</span>
+} <span class="pl-k">else</span> {
+    num <span class="pl-k">+=</span> <span class="pl-c1">1</span>;
+}</pre></div>
+
+<p>If you find yourself in this situation, simply negate the condition,
+put the code you put in the <code>else</code> in the <code>if</code> and leave off the
+<code>else</code> block. The <code>!</code> is the negation operator.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">if</span> (<span class="pl-k">!</span>(num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>)) { <span class="pl-c">// could also be `if (num % 2 != 0)`</span>
+    num <span class="pl-k">+=</span> <span class="pl-c1">1</span>;
+}</pre></div>
+
+<p>Another common tendency is to over-use <code>if</code>/<code>else</code> in a <code>boolean</code>
+context. For example, if you were writing a function to determine if a
+number is odd, you may write:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">boolean</span> numIsOdd(<span class="pl-k">int</span> num) {
+    <span class="pl-k">if</span> (num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">!=</span> <span class="pl-c1">0</span>) {
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    } <span class="pl-k">else</span> {
+        <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+    }
+}</pre></div>
+
+<p>Two things are worth noting. For one, once you return from a function,
+there's no going back, so you could omit the <code>else</code> and have the
+equivalent code.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">boolean</span> numIsOdd(<span class="pl-k">int</span> num) {
+    <span class="pl-k">if</span> (num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">!=</span> <span class="pl-c1">0</span>) {
+        <span class="pl-k">return</span> <span class="pl-c1">true</span>;
+    }
+    <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+}</pre></div>
+
+<p>The other point is that the return type of <code>numIsOdd</code> is boolean, the
+same type that <code>if</code> and <code>else</code> take in the first place. So we can
+shorten our code to simply</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">boolean</span> numIsOdd(<span class="pl-k">int</span> num) {
+    <span class="pl-k">return</span> num <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">!=</span> <span class="pl-c1">0</span>;
+}</pre></div>
+
+<p><code>if</code>s and <code>else</code>s can be stacked together to improve the following</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> n <span class="pl-k">=</span> <span class="pl-c">/* ... */</span> ;
+<span class="pl-k">if</span> (n <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {
+    <span class="pl-c">// n is positive</span>
+} <span class="pl-k">else</span> { <span class="pl-c">// n is either 0 or negative</span>
+    <span class="pl-k">if</span> (n <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
+        <span class="pl-c">// n is 0</span>
+    } <span class="pl-k">else</span> {
+        <span class="pl-c">// n is anything else (negative)</span>
+    }
+}</pre></div>
+
+<p>to</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> n <span class="pl-k">=</span> <span class="pl-c">/* ... */</span> ;
+<span class="pl-k">if</span> (n <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {
+    <span class="pl-c">// n is positive</span>
+} <span class="pl-k">else</span> <span class="pl-k">if</span> (n <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
+    <span class="pl-c">// n is 0</span>
+} <span class="pl-k">else</span> {
+    <span class="pl-c">// n is anything else (negative)</span>
+}</pre></div>
+
+<p>in order to reduce the nesting of statements (how far right the
+statement extends)</p>
+
+<h3>
+<a id="user-content-switch" class="anchor" href="#switch" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>switch</h3>
+
+<p>If you find yourself writing a long series of <code>if</code>, <code>else if</code> chains,
+the <code>switch</code> statement may be used.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">/* Assume:</span>
+<span class="pl-c"> * 0 means hearts</span>
+<span class="pl-c"> * 1 means diamonds</span>
+<span class="pl-c"> * 2 means spades</span>
+<span class="pl-c"> * 3 means clubs</span>
+<span class="pl-c"> */</span>
+<span class="pl-k">void</span> printSuit(<span class="pl-k">int</span> card_suit) {
+    <span class="pl-k">switch</span>(card_suit) {
+        <span class="pl-k">case</span> <span class="pl-c1">0</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>HEARTS<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">case</span> <span class="pl-c1">1</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>DIAMONDS<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">case</span> <span class="pl-c1">2</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>SPADES<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">case</span> <span class="pl-c1">3</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>CLUBS<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">default</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>I dont recognize the suit <span class="pl-pds">"</span></span> <span class="pl-k">+</span> card_suit);
+        <span class="pl-k">break</span>;
+    }
+}</pre></div>
+
+<p>The <code>default</code> statement is like the final <code>else</code>, it gets executed if
+no other case matched. The <code>break</code> is necessary so that if case 0 gets
+executed, case 1 does not also get executed. Sometimes, programmers
+intend for the cases to <em>fallthrough</em>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">void</span> printColor(<span class="pl-k">int</span> card_suit) {
+    <span class="pl-k">switch</span> (card_suit) {
+        <span class="pl-k">case</span> <span class="pl-c1">0</span><span class="pl-k">:</span>
+        <span class="pl-c">/* FALLTHROUGH */</span>
+        <span class="pl-k">case</span> <span class="pl-c1">1</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>RED<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">case</span> <span class="pl-c1">2</span><span class="pl-k">:</span>
+        <span class="pl-c">/* FALLTHROUGH */</span>
+        <span class="pl-k">case</span> <span class="pl-c1">3</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>BLACK<span class="pl-pds">"</span></span>);
+        <span class="pl-k">break</span>;
+        <span class="pl-k">default</span><span class="pl-k">:</span>
+            <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>I dont recognize the suit <span class="pl-pds">"</span></span> <span class="pl-k">+</span> card_suit);
+        <span class="pl-k">break</span>;
+    }
+}</pre></div>
+
+<h2>
+<a id="user-content-looping-constructs" class="anchor" href="#looping-constructs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Looping constructs</h2>
+
+<p>The <code>for</code>, <code>while</code>, <code>do</code>/<code>while</code> are all close siblings that can be
+made to achieve a common looping pattern. However, one may be more
+natural than the others in some situations.</p>
+
+<h3>
+<a id="user-content-for" class="anchor" href="#for" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>for</h3>
+
+<p>A common looping construct is the <code>for</code> loop. While it can be bent to
+implement more complex loops, the <code>for</code> loop is best used to loop an
+amount that is known up front.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> factorial(<span class="pl-k">int</span> <span class="pl-smi">N</span>) {
+    prod <span class="pl-k">=</span> <span class="pl-c1">1</span>;
+    <span class="pl-k">for</span> (<span class="pl-k">int</span> i <span class="pl-k">=</span> <span class="pl-c1">2</span>; i <span class="pl-k">&lt;=</span> <span class="pl-smi">N</span>; i<span class="pl-k">++</span>) {
+        prod <span class="pl-k">*=</span> i;
+    }
+    <span class="pl-k">return</span> prod;
+}</pre></div>
+
+<p>The for loop says for an integer variable named <code>i</code>, initialized to
+<code>2</code>, increment <code>i</code> by <code>1</code> up to and including <code>N</code>.</p>
+
+<h3>
+<a id="user-content-while" class="anchor" href="#while" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>while</h3>
+
+<p>The while loop is best used for looping by an amount that may not be
+known when starting the loop or its dependent on the data being looped
+through. For instance, in a search for an element in an array.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> indexOf(<span class="pl-k">int</span>[] array, <span class="pl-k">int</span> num) {
+    <span class="pl-k">int</span> index <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+    <span class="pl-k">while</span> (index <span class="pl-k">&lt;</span> array<span class="pl-k">.</span>length <span class="pl-k">&amp;&amp;</span> array[index] <span class="pl-k">!=</span> num) {
+        <span class="pl-k">++</span>index;
+    }
+    <span class="pl-k">if</span> (array[index] <span class="pl-k">!=</span> num) {
+        <span class="pl-c">// num not found, return -1</span>
+        <span class="pl-k">return</span> <span class="pl-k">-</span><span class="pl-c1">1</span>;
+    }
+    <span class="pl-k">return</span> index;
+}</pre></div>
+
+<h3>
+<a id="user-content-dowhile" class="anchor" href="#dowhile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>do/while</h3>
+
+<p>The <code>do</code>/<code>while</code> loop is quite similar to the <code>while</code> loop. Its
+intention is for looping situations that will always loop at least
+once. With the plain <code>while</code> loop, you'll notice we check the
+condition before we enter the body. If the condition is false off the
+bat, the body is never entered. This is sometimes desired, sometimes
+not. If you find yourself writing code like</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> n;
+n <span class="pl-k">=</span> foo();
+<span class="pl-k">while</span> (n <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>) {
+    n <span class="pl-k">=</span> foo();
+}</pre></div>
+
+<p>Consider changing your code to</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> n;
+<span class="pl-k">do</span> {
+    n <span class="pl-k">=</span> foo();
+} <span class="pl-k">while</span>(n <span class="pl-k">&gt;</span> <span class="pl-c1">0</span>);</pre></div>
+
+<h3>
+<a id="user-content-continue" class="anchor" href="#continue" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>continue</h3>
+
+<p>While looping, we may want to only execute some of the body of the
+loop depending on the state of the loop. In these cases, the
+<code>continue</code> can be used to skip to the next iteration of the loop.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// Print the odd numbers from 1 to 10</span>
+<span class="pl-k">for</span> (<span class="pl-k">int</span> i<span class="pl-k">=</span><span class="pl-c1">1</span>; i<span class="pl-k">&lt;=</span><span class="pl-c1">11</span>; i<span class="pl-k">++</span>) {
+    <span class="pl-k">if</span> (i <span class="pl-k">%</span> <span class="pl-c1">2</span> <span class="pl-k">==</span> <span class="pl-c1">0</span>) { <span class="pl-c">// even</span>
+        <span class="pl-k">continue</span>; <span class="pl-c">// skip to next number</span>
+    }
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(i);
+}</pre></div>
+
+<h3>
+<a id="user-content-break" class="anchor" href="#break" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>break</h3>
+
+<p>Another keyword you can use to manipulate looping from within the loop
+body is <code>break</code>. This allows you to early quit the loop.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> indexOf(<span class="pl-k">int</span>[] array, <span class="pl-k">int</span> num) {
+    <span class="pl-k">boolean</span> found <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+    <span class="pl-k">int</span> index <span class="pl-k">=</span> <span class="pl-c1">0</span>;
+    <span class="pl-k">while</span> (index <span class="pl-k">&lt;</span> array<span class="pl-k">.</span>length) {
+        <span class="pl-k">if</span> (array[index] <span class="pl-k">==</span> num) {
+            found <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+            <span class="pl-k">break</span>; <span class="pl-c">// no sense in going further, we already found num</span>
+        }
+        <span class="pl-k">++</span>index;
+    }
+    <span class="pl-k">if</span> (<span class="pl-k">!</span>found)
+        <span class="pl-k">return</span> <span class="pl-k">-</span><span class="pl-c1">1</span>;
+    }
+    <span class="pl-k">return</span> index;
+}</pre></div>
+
               </div>
             </div>
           </div>

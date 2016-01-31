@@ -86,3 +86,45 @@ public class AClass {
     }
 }
 ```
+
+---
+
+Since every variable in Java is declared, it is not always necessary
+to use the `this` keyword to refer to a class's member variable. On
+the other hand, it does no damage to include the `this`, so when in
+doubt, include it. `this` is necessary when you have a local variable
+within a function that has the same name as a member variable - then
+you need the `this` to disambiguate which variable you mean. Some
+people write constructors like this:
+
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+In the above code, since the constructor parameters are named the same
+as the member variables, we must use `this` on the left hand side to
+indicate we want the parameters to be assigned to the member
+variables. Had we left off the `this`, the member variables would
+never be given any value. If you name the function variables
+differently, as some people choose to do, then you do not need the
+`this` since it is clear what name refers to what variable.
+
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String name_, int age_) {
+        name = name_;
+        age = age_;
+    }
+}
+```
