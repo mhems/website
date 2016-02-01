@@ -1,7 +1,7 @@
 GRIP=grip
 FLAGS=--export
 
-pages: shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html
+pages: shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html
 
 shell.html: shell.md
 	$(GRIP) $(FLAGS) --title='Shell' shell.md
@@ -51,5 +51,8 @@ types.html: types.md
 hello.html: hello.md
 	$(GRIP) $(FLAGS) --title='Hello World' hello.md
 
+object.html: object.md
+	$(GRIP) $(FLAGS) --title='Object' object.md
+
 clean:
-	rm -f access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html
+	rm -f access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html
