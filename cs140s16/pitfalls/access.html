@@ -63,26 +63,126 @@ cannot access it. Hence access modifiers, they modify the access of a
 name.</p>
 
 <p>Java has 4 access modifiers, <code>public</code>, <code>private</code>, <code>protected</code>, and the
-implicit <code>package-private</code>. Classes, methods, and some variables may
+implicit <em>package-private</em>. Classes, methods, and some variables may
 be prefixed with an access modifier.</p>
 
 <h2>
 <a id="user-content-what-does-each-access-modifier-mean" class="anchor" href="#what-does-each-access-modifier-mean" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What does each access modifier mean?</h2>
 
 <p>Before we look at which things allow access modifiers, we need to know
-what each of the four modifiers mean.</p>
-
-<h3>
-<a id="user-content-public" class="anchor" href="#public" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>public</h3>
+what each of the four modifiers mean. In order of accesibility, from
+least to most:</p>
 
 <h3>
 <a id="user-content-private" class="anchor" href="#private" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>private</h3>
 
-<h3>
-<a id="user-content-protected" class="anchor" href="#protected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>protected</h3>
+<p><code>private</code> is the most restrictive, only within that class can you
+access that name, regardless of subclassing. Consider the access of
+<code>i</code>, declared in class <code>A</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">A</span> {
+    <span class="pl-k">private</span> <span class="pl-k">int</span> i;
+
+    <span class="pl-k">void</span> <span class="pl-en">timesTwo</span>() {
+        <span class="pl-k">return</span> i <span class="pl-k">*</span> <span class="pl-c1">2</span>; <span class="pl-c">// OK</span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>; <span class="pl-c">// same package</span>
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">B</span> <span class="pl-k">extends</span> <span class="pl-e">A</span> { <span class="pl-c">// B is a subclass of A</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
+        <span class="pl-smi">A</span> a <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">A</span>();
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(a<span class="pl-k">.</span>i); <span class="pl-c">// &lt;- can't see i, won't compile</span>
+    }
+}</pre></div>
 
 <h3>
 <a id="user-content-package-private" class="anchor" href="#package-private" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>package-private</h3>
+
+<p><em>package-private</em> is more open than <code>private</code>. It is the default
+ access modifier, meaning that to declare a name to be
+ <em>package-private</em>, simply omit an access modifier. A
+ <em>package-private</em> name can be thought of as <code>public</code> to everyone
+ within the same package, <code>private</code> to anyone outside the
+ package. Consider the access of class <code>A</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>;
+
+<span class="pl-k">class</span> <span class="pl-en">A</span> {
+
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>; <span class="pl-c">// same package</span>
+
+<span class="pl-k">class</span> <span class="pl-en">B</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">A</span> a; <span class="pl-c">// OK</span>
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">C</span>; <span class="pl-c">// different package</span>
+
+<span class="pl-k">class</span> <span class="pl-en">C</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">A</span> a; <span class="pl-c">// &lt;- can't see A, won't compile</span>
+}</pre></div>
+
+<h3>
+<a id="user-content-protected" class="anchor" href="#protected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>protected</h3>
+
+<p><code>protected</code> is slightly more open than <em>package-private</em>. A
+<code>protected</code> name is accessible to those in the same package or any
+subclasses (even if that subclass is in a different package). Consider
+the access of <code>i</code>, defined in class <code>A</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">A</span> {
+    <span class="pl-k">protected</span> <span class="pl-k">int</span> i;
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>; <span class="pl-c">// same package</span>
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Another</span> {
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
+        <span class="pl-smi">A</span> a <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">A</span>();
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(a<span class="pl-k">.</span>i); <span class="pl-c">// OK</span>
+    }
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">B</span>; <span class="pl-c">// different package</span>
+
+<span class="pl-k">class</span> <span class="pl-en">B</span> <span class="pl-k">extends</span> <span class="pl-e">A</span> { <span class="pl-c">// B is a subclass of A</span>
+
+    <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
+        <span class="pl-smi">A</span> a <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">A</span>();
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(a<span class="pl-k">.</span>i); <span class="pl-c">// OK</span>
+    }
+}</pre></div>
+
+<h3>
+<a id="user-content-public" class="anchor" href="#public" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>public</h3>
+
+<p><code>public</code> means anyone can access that symbol, regardless of their
+relationship with or the package of the declaring class. Consider the
+access of class <code>A</code>.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">A</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">A</span> {
+
+}</pre></div>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">B</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">B</span> {
+    <span class="pl-k">private</span> <span class="pl-smi">A</span> a; <span class="pl-c">// OK</span>
+}</pre></div>
+
+<p><code>B</code> can declare an instance variable of type <code>A</code> since the class <code>A</code>
+is publicly visible. The access modifier of class <code>B</code> or variable <code>a</code>
+has no implications on whether <code>B</code> can "see" <code>A</code>.</p>
 
 <hr>
 
@@ -97,17 +197,17 @@ classes. For example:</p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">example</span>;
 
-<span class="pl-c">// Any other class can use Class, its public</span>
+<span class="pl-c">// Any other class can use Class, it's public</span>
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Class</span> {
-    <span class="pl-c">// ...</span>
+
     <span class="pl-k">class</span> <span class="pl-en">InnerClass</span> {
-        <span class="pl-c">// ...</span>
+
     }
 }
 
 <span class="pl-c">// only classes within the example package can use me</span>
 <span class="pl-k">class</span> <span class="pl-en">HelperClass</span> {
-    <span class="pl-c">// ...</span>
+
 }</pre></div>
 
 <p>All methods can take an access modifier to dictate if that method can
@@ -115,10 +215,10 @@ be called from within other classes.</p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Class</span> {
     <span class="pl-c">// everyone can see the constructor</span>
-    <span class="pl-k">public</span> <span class="pl-en">Class</span>() {}
+    <span class="pl-k">public</span> <span class="pl-en">Class</span>() { }
 
     <span class="pl-c">// this function is only visible within this class</span>
-    <span class="pl-k">private</span> <span class="pl-k">int</span> <span class="pl-en">helper_function</span>() {}
+    <span class="pl-k">private</span> <span class="pl-k">int</span> <span class="pl-en">helper_function</span>() { <span class="pl-k">return</span> <span class="pl-c1">0</span>; }
 }</pre></div>
 
 <p>A variable may take an access modifier depending on where it is
@@ -133,14 +233,9 @@ to within that function.</p>
 
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
         <span class="pl-k">int</span> counter;
-        <span class="pl-c">// public double num; // &lt;- this won't compile</span>
+        <span class="pl-k">public</span> <span class="pl-k">double</span> num; <span class="pl-c">// &lt;- this won't compile</span>
     }
 }</pre></div>
-
-<hr>
-
-<h2>
-<a id="user-content-a-word-on-usage" class="anchor" href="#a-word-on-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A word on usage</h2>
 
               </div>
             </div>
