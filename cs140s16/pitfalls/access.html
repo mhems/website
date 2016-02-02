@@ -52,6 +52,96 @@
 <h2>
 <a id="user-content-stop---cant-touch-this" class="anchor" href="#stop---cant-touch-this" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stop! - Can't touch this</h2>
 
+<p>Java attempts to achieve data hiding via access modifiers. That is, it
+lets the programmar specify the access level of a name. The old view
+of object-oriented programming was concerned with hiding the data
+internal to an object and only exposing that which users of the class
+would need. This design choice gives programmers somewhat of a
+contract, its not infallable, that what they specify as hidden will be
+hidden to users of their code. By hidden, we mean that client code
+cannot access it. Hence access modifiers, they modify the access of a
+name.</p>
+
+<p>Java has 4 access modifiers, <code>public</code>, <code>private</code>, <code>protected</code>, and the
+implicit <code>package-private</code>. Classes, methods, and some variables may
+be prefixed with an access modifier.</p>
+
+<h2>
+<a id="user-content-what-does-each-access-modifier-mean" class="anchor" href="#what-does-each-access-modifier-mean" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What does each access modifier mean?</h2>
+
+<p>Before we look at which things allow access modifiers, we need to know
+what each of the four modifiers mean.</p>
+
+<h3>
+<a id="user-content-public" class="anchor" href="#public" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>public</h3>
+
+<h3>
+<a id="user-content-private" class="anchor" href="#private" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>private</h3>
+
+<h3>
+<a id="user-content-protected" class="anchor" href="#protected" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>protected</h3>
+
+<h3>
+<a id="user-content-package-private" class="anchor" href="#package-private" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>package-private</h3>
+
+<hr>
+
+<h2>
+<a id="user-content-what-names-can-take-access-modifiers" class="anchor" href="#what-names-can-take-access-modifiers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What names can take access modifiers?</h2>
+
+<p>A class can take either the <code>public</code> or package-private access
+modifier to dictate if that class is visible to other classes. Each
+java file can contain only one public top-level class, it can contain
+any number of package-private top-level classes as well as nested
+classes. For example:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">example</span>;
+
+<span class="pl-c">// Any other class can use Class, its public</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Class</span> {
+    <span class="pl-c">// ...</span>
+    <span class="pl-k">class</span> <span class="pl-en">InnerClass</span> {
+        <span class="pl-c">// ...</span>
+    }
+}
+
+<span class="pl-c">// only classes within the example package can use me</span>
+<span class="pl-k">class</span> <span class="pl-en">HelperClass</span> {
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>All methods can take an access modifier to dictate if that method can
+be called from within other classes.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Class</span> {
+    <span class="pl-c">// everyone can see the constructor</span>
+    <span class="pl-k">public</span> <span class="pl-en">Class</span>() {}
+
+    <span class="pl-c">// this function is only visible within this class</span>
+    <span class="pl-k">private</span> <span class="pl-k">int</span> <span class="pl-en">helper_function</span>() {}
+}</pre></div>
+
+<p>A variable may take an access modifier depending on where it is
+declared. If a variable is declared at class scope, it can take an
+access modifier. If a variable is declared within a function, it
+cannot take an access modifier since its visibility is already limited
+to within that function.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Class</span> {
+    <span class="pl-k">public</span> <span class="pl-k">final</span> <span class="pl-k">double</span> <span class="pl-c1">PI</span> <span class="pl-k">=</span> <span class="pl-c1">3.14</span>; <span class="pl-c">// anyone can access this</span>
+    <span class="pl-k">private</span> <span class="pl-k">int</span> myID; <span class="pl-c">// only within this class is myID accessible</span>
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">foo</span>() {
+        <span class="pl-k">int</span> counter;
+        <span class="pl-c">// public double num; // &lt;- this won't compile</span>
+    }
+}</pre></div>
+
+<hr>
+
+<h2>
+<a id="user-content-a-word-on-usage" class="anchor" href="#a-word-on-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A word on usage</h2>
+
               </div>
             </div>
           </div>
