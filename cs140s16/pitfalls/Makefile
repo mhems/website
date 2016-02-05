@@ -1,7 +1,7 @@
 GRIP=grip
 FLAGS=--export
 
-pages: shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html
+pages: shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html
 
 shell.html: shell.md
 	$(GRIP) $(FLAGS) --title='Shell' shell.md
@@ -57,5 +57,8 @@ object.html: object.md
 python.html: python.md
 	$(GRIP) $(FLAGS) --title='Python vs. Java' python.md
 
+arrays.html: arrays.md
+	$(GRIP) $(FLAGS) --title='Arrays' arrays.md
+
 clean:
-	rm -f access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html
+	rm -f access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html

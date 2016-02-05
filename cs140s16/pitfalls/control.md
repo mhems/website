@@ -206,6 +206,29 @@ int factorial(int N) {
 The for loop says for an integer variable named `i`, initialized to
 `2`, increment `i` by `1` up to and including `N`.
 
+### enhanced for-loop
+
+The above normal for-loop style is sometimes over-specific for our
+situation. When iterating through a data structure, we sometimes don't
+care what index we're at. Tasks like printing, summing, or finding the
+max do not necessitate knowing the index. In these scenarios, Java
+offers the enhanced for-loop.
+
+```java
+int max(int[] array) {
+    if (array == null) {
+        return -1;
+    }
+    int max = -1;
+    for (Integer i : array) {
+        if (i > max) {
+            max = i;
+        }
+    }
+    return max;
+}
+```
+
 ### while
 
 The while loop is best used for looping by an amount that may not be

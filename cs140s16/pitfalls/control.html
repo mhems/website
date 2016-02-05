@@ -238,6 +238,28 @@ amount that is known up front.</p>
 <code>2</code>, increment <code>i</code> by <code>1</code> up to and including <code>N</code>.</p>
 
 <h3>
+<a id="user-content-enhanced-for-loop" class="anchor" href="#enhanced-for-loop" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>enhanced for-loop</h3>
+
+<p>The above normal for-loop style is sometimes over-specific for our
+situation. When iterating through a data structure, we sometimes don't
+care what index we're at. Tasks like printing, summing, or finding the
+max do not necessitate knowing the index. In these scenarios, Java
+offers the enhanced for-loop.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">int</span> max(<span class="pl-k">int</span>[] array) {
+    <span class="pl-k">if</span> (array <span class="pl-k">==</span> <span class="pl-c1">null</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">-</span><span class="pl-c1">1</span>;
+    }
+    <span class="pl-k">int</span> max <span class="pl-k">=</span> <span class="pl-k">-</span><span class="pl-c1">1</span>;
+    <span class="pl-k">for</span> (<span class="pl-smi">Integer</span> i <span class="pl-k">:</span> array) {
+        <span class="pl-k">if</span> (i <span class="pl-k">&gt;</span> max) {
+            max <span class="pl-k">=</span> i;
+        }
+    }
+    <span class="pl-k">return</span> max;
+}</pre></div>
+
+<h3>
 <a id="user-content-while" class="anchor" href="#while" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>while</h3>
 
 <p>The while loop is best used for looping by an amount that may not be
