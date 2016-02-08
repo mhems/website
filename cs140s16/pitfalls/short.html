@@ -51,6 +51,62 @@
 <h2>
 <a id="user-content-why-do-something-you-dont-need-to-do" class="anchor" href="#why-do-something-you-dont-need-to-do" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Why do something you don't need to do</h2>
 
+<p>Most programming languages' binary boolean operators (<code>and</code> and <code>or</code> )
+follow short-circuit semantics; Java is no different. This means that,
+under certain circumstances, the second expression will not be
+evaluated. This feature is often used when the second expression
+depends on the status of the first expression. In these cases, order
+matters.</p>
+
+<h2>
+<a id="user-content-and" class="anchor" href="#and" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>and</h2>
+
+<p>Consider <code>a &amp;&amp; b</code></p>
+
+<p>If <code>a</code> evaluates to <code>false</code>, there is no sense in evaluating <code>b</code>, the
+result of false and anything else will always be false. Thus if <code>a</code> is
+false, <code>b</code> is not evaluated. This is often used to first check if
+something is null and if not, access some member. The access will not
+occur if the reference is null.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">void</span> foo(<span class="pl-k">int</span>[] array) {
+    <span class="pl-k">if</span> (array <span class="pl-k">!=</span> <span class="pl-c1">null</span> <span class="pl-k">&amp;&amp;</span> array<span class="pl-k">.</span>length <span class="pl-k">!=</span> <span class="pl-c1">0</span>) {
+        <span class="pl-k">for</span> (<span class="pl-smi">Integer</span> i <span class="pl-k">:</span> array) {
+            <span class="pl-c">// ...</span>
+        }
+    }
+}</pre></div>
+
+<p>In the above example, <code>array.length == 0</code> will be evaluated if and
+only if the <code>array</code> is not <code>null</code>. Were we to reverse the order to
+<code>array.length != 0 &amp;&amp; array!=null</code>, the null check would be
+useless. If <code>array</code> were <code>null</code>, we would get a NullPointerException
+before the check.</p>
+
+<h2>
+<a id="user-content-or" class="anchor" href="#or" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>or</h2>
+
+<p>Consider <code>a || b</code></p>
+
+<p>If <code>a</code> evaluates to <code>true</code>, there is no sense in evaluating <code>b</code> since
+the result of true and anything else is always true. Thus if <code>a</code> is
+true, <code>b</code> is not evaluated. This can again be used to avoid the second
+expression when the first is true.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">void</span> foo(<span class="pl-k">int</span>[] array) {
+    <span class="pl-k">if</span> (array <span class="pl-k">==</span> <span class="pl-c1">null</span> <span class="pl-k">||</span> array<span class="pl-k">.</span>length <span class="pl-k">==</span> <span class="pl-c1">0</span>) {
+        <span class="pl-k">return</span>;
+    }
+    <span class="pl-k">for</span> (<span class="pl-smi">Integer</span> i <span class="pl-k">:</span> array) {
+            <span class="pl-c">// ...</span>
+    }
+}</pre></div>
+
+<p>If <code>array</code> is <code>null</code>, we immediately go inside the <code>if</code> and <code>return</code>
+from the function. If the <code>array</code> is not <code>null</code>, then we can safely
+check its length. If both those things are false, we go on our way
+doing something with <code>array</code>.</p>
+
               </div>
             </div>
           </div>
