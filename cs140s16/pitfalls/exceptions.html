@@ -51,6 +51,243 @@
 <h2>
 <a id="user-content-how-to-be-truly-exceptional" class="anchor" href="#how-to-be-truly-exceptional" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to be truly exceptional</h2>
 
+<p>Most modern languages provide some mechanism for handling exceptional
+cases that may arise during a program's execution. These are aptly
+called exceptions. There are two sides to exceptions - dealing with
+them once they've occured and raising them to signify an exceptional
+case. Java uses the word <code>throw</code> to signify raising an exception and
+<code>catch</code> to signify handling an exception. Baseball analogies could ensue.</p>
+
+<p>Java classifies exceptions into two categories, checked and unchecked.</p>
+
+<h2>
+<a id="user-content-handling-exceptions" class="anchor" href="#handling-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling exceptions</h2>
+
+<h3>
+<a id="user-content-checked-exceptions" class="anchor" href="#checked-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Checked exceptions</h3>
+
+<p>Along the lines of Java's up-front nature, some potentially
+exceptional operations are what Java calls <strong>checked</strong>. This means
+that the programmer is forced to write code to handle them if they
+occur. It is a compile error to not handle a checked exception. One
+example is the <code>FileNotFoundException</code> that could potentially be
+thrown when trying to create a file. The exception is checked so we
+must handle that code with a <code>try</code>/<code>catch</code> block.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">java.util.Scanner</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.io.File</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.io.FileNotFoundException</span>;
+<span class="pl-c">// ...</span>
+<span class="pl-c">// declare variable outside try/catch so we can use it after</span>
+<span class="pl-smi">Scanner</span> scanner <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+<span class="pl-k">try</span> { <span class="pl-c">// put potentially exceptional stuff here</span>
+    scanner <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-s"><span class="pl-pds">"</span>some_file.txt<span class="pl-pds">"</span></span>));
+} <span class="pl-k">catch</span>(<span class="pl-smi">FileNotFoundException</span> e) {
+    <span class="pl-c">// if the Scanner constructor throws a FileNotFoundException,</span>
+    <span class="pl-c">// this code exectues:</span>
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>File <span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>some_file.txt<span class="pl-pds">"</span></span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">"</span>not found<span class="pl-pds">"</span></span>);
+    e<span class="pl-k">.</span>printStackTrace(); <span class="pl-c">// show calls that led to this exception</span>
+    <span class="pl-smi">Sytem</span><span class="pl-k">.</span>exit(<span class="pl-k">-</span><span class="pl-c1">1</span>); <span class="pl-c">// irrecoverable error, exit entire program with error code</span>
+}
+<span class="pl-c">// we can now use scanner to scan from file</span>
+<span class="pl-c">// scanner can't be null since we exit if there's an exception</span>
+<span class="pl-k">while</span> (scanner<span class="pl-k">.</span>hasNext()) {
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(scanner<span class="pl-k">.</span>next());
+}</pre></div>
+
+<p>The above snippet reads a file and prints its contents back out,
+exiting if the file cannot be found.</p>
+
+<p>Once you handle an exception with a <code>catch</code>, execution proceeds to
+after that block. You've handled that exception so Java moves on.</p>
+
+<p>Had we left out the <code>try</code>/<code>catch</code> block, javac would have given the
+error: <em>unreported exception <code>FileNotFoundException</code>; must be caught
+or declared to be thrown.</em> You'll notice that javac said the exception
+could be caught (i.e. with a <code>try</code>/<code>catch</code> block) <strong>or</strong> declared to
+be thrown - more on this later.</p>
+
+<h3>
+<a id="user-content-unchecked-exceptions" class="anchor" href="#unchecked-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unchecked exceptions</h3>
+
+<p>On the other hand, handling every possible exception that could ever
+occur is tedious and unnecessary. Hence, Java has unchecked
+exceptions, which you are not <strong>forced</strong> to handle. You may if you
+wish but you don't have to. The most abundant example of this is the
+<code>ArrayOutOfBoundsException</code> and <code>NullPointerException</code>. Any time you
+use access a member of an object, that object could be <code>null</code>. It
+would be ridiculous of Java to expect the programmer to wrap every use
+of <code>.</code> with a <code>try</code>/<code>catch</code>. So what happens if an unchecked exception
+happens? Java prints out the stack trace (chain of calls that led to
+exception) and exits the program.</p>
+
+<p>Consider the above snippet again, this time with the line</p>
+
+<div class="highlight highlight-source-java"><pre>scanner <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-s"><span class="pl-pds">"</span>some_file.txt<span class="pl-pds">"</span></span>));</pre></div>
+
+<p>replaced with</p>
+
+<div class="highlight highlight-source-java"><pre>scanner <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-c1">null</span>));</pre></div>
+
+<p>The documentation of the <code>File</code> constructor states that it throws a
+<code>NullPointerException</code> iff it is passed <code>null</code>. Since our catch block
+only catches <code>FileNotFoundException</code>s, Java prints the stack trace and
+exits. We could append another <code>catch</code> block after the first one, but
+what would we really be doing that Java wouldn't do by default.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-c">// same as above</span>
+<span class="pl-k">try</span> {
+    scanner <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Scanner</span>(<span class="pl-k">new</span> <span class="pl-smi">File</span>(<span class="pl-c1">null</span>));
+} <span class="pl-k">catch</span>(<span class="pl-smi">FileNotFoundException</span> e) {
+    <span class="pl-c">// same as above</span>
+} <span class="pl-k">catch</span>(<span class="pl-smi">NullPointerException</span> e) {
+    <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>OH NO!<span class="pl-pds">"</span></span>); <span class="pl-c">// all that's different from no catch at all</span>
+    e<span class="pl-k">.</span>printStackTrace(); <span class="pl-c">// done by default</span>
+    <span class="pl-smi">System</span><span class="pl-k">.</span>exit(<span class="pl-c1">1</span>); <span class="pl-c">// done by default (default exit code is 1)</span>
+}</pre></div>
+
+<p>However, with unchecked exceptions, if they occur and we don't handle
+them, we lose control. Java prints the stack trace and exits, there's
+no returning.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-creating-exceptions" class="anchor" href="#creating-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating exceptions</h2>
+
+<p>Now that we've seen the one side of something else throwing an error
+and us dealing with it, let's take the mitt off and talk about how to
+<code>throw</code> an exception. When writing library code that someone else will
+use, we want to handle any possible internal exceptions that could
+occur, or at least let them know when we can't handle it.</p>
+
+<p>Let's say, for illustrative purposes, that we are writing a class
+representing a special kind of file reader that skips the blank lines
+in a file.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">java.util.Scanner</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.io.File</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.io.FileNotFoundException</span>;
+
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyFileScanner</span> <span class="pl-k">extends</span> <span class="pl-e">Scanner</span> {
+
+    <span class="pl-k">private</span> <span class="pl-smi">FileInputStream</span> input;
+
+    <span class="pl-k">public</span> <span class="pl-en">MyFileScanner</span>(<span class="pl-smi">File</span> <span class="pl-v">source</span>) {
+        input <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">FileInputStream</span>(source);
+    }
+
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>The Java documentation tells us that the <code>FileInputStream</code> constructor
+we're internally calling within our constructor <code>throws</code> a
+<code>FileNotFoundException</code> if the file cannot be found. Reasonable
+enough.  However, the above does not compile - remember,
+<code>FileNotFoundException</code> is a checked exception. We must handle it, or
+declare that we <code>throw</code> it. We could use a <code>try</code>/<code>catch</code> block, but
+what would the <code>catch</code> contain? We can't really make assumptions on
+how the user of our <code>MyFileScanner</code> wants to react to an absent file
+so we instead <code>throw</code> the exception to the caller. We're essentially
+playing hot-potato. <code>FileInputStream</code> throws an error, we don't want
+to catch it, so we throw it on to our caller, passing the buck. We
+tell Java we're deferring the exception handling to our caller by
+changing the method signature.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> MyFileScanner(<span class="pl-smi">File</span> source) throws <span class="pl-smi">FileNotFoundException</span> { <span class="pl-c1">...</span> }</pre></div>
+
+<p>Now anyone that uses our constructor must use a <code>try</code>/<code>catch</code> or they
+too can pass the buck to their caller and on it can go. This is
+because <code>FileNotFoundException</code> is checked; were it unchecked its up
+to them. Eventually someone will have to handle it though, like say a
+<code>main</code> method.</p>
+
+<p>The above discusses how to propagate an exception but how do we
+<code>throw</code> a new exception - with the <code>throw</code> keyword! This is often used
+to raise exceptions we've written - more on that after this.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">boolean</span> isPasswordValid(<span class="pl-smi">String</span> s) {
+    <span class="pl-k">if</span> (s <span class="pl-k">==</span> <span class="pl-c1">null</span>) {
+        <span class="pl-k">throw</span> NoPasswordGivenException(<span class="pl-s"><span class="pl-pds">"</span>You must give a password<span class="pl-pds">"</span></span>);
+        <span class="pl-c">// anything here won't be seen, no return after throwing</span>
+    }
+    <span class="pl-c">// s is non-null since an exception would be thrown if it were</span>
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>The <code>throw</code> keyword is followed by the object you'd like to throw. We
+create an instance of the <code>NoPasswordGivenException</code> exception class
+with a message and then it is thrown. Control goes back to the calling
+function.</p>
+
+<p>Sometimes people new to exceptions like to overuse
+<code>throw</code>. If an exception would happen, there's no need to check for it
+and <code>throw</code> it explicitly, that will happen implicitly. For example,
+code like this is completely unnecesary.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">int</span> countNumNulls(<span class="pl-k">Object</span>[] array) {
+    <span class="pl-k">if</span> (array <span class="pl-k">==</span> <span class="pl-c1">null</span>) {
+        <span class="pl-k">throw</span> NullPointerException();
+    }
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>If <code>array</code> were <code>null</code>, Java would throw a <code>NullPointerException</code> the
+first time you tried to use <code>array</code>, there's no need to do it yourself.</p>
+
+<hr>
+
+<h2>
+<a id="user-content-writing-exceptions" class="anchor" href="#writing-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Writing exceptions</h2>
+
+<p>When writing programs that have their own domain logic, we often have
+exceptional cases we'd like to express. Take the above password
+example. When no password is given (i.e. via <code>null</code>), we can't do
+much. We could assume its not null and let Java throw a
+<code>NullPointerException</code> but this would look foreign to an end-user. We
+do not want to expose the inner workings of Java, we want the user to
+get a descriptive error so we create a new exception class. If we want
+the exception to be unchecked, we declare the new class to <code>extend</code>
+<code>RuntimeException</code>, otherwise, <code>extend</code> Exception.</p>
+
+<p>Unchecked:</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">NoPasswordGivenException</span> <span class="pl-k">extends</span> <span class="pl-e">RuntimeException</span> {
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>Checked:</p>
+
+<div class="highlight highlight-source-java"><pre>Public <span class="pl-k">class</span> <span class="pl-en">NoPasswordGivenException</span> <span class="pl-k">extends</span> <span class="pl-e">Exception</span> {
+    <span class="pl-c">// ...</span>
+}</pre></div>
+
+<p>To meaningfully subclass <code>Exception</code>, we should implement a
+constructor that takes the message to output.</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">NoPasswordGivenException</span> <span class="pl-k">extends</span> <span class="pl-e">RuntimeException</span> {
+    <span class="pl-k">public</span> <span class="pl-en">NoPasswordGivenException</span>(<span class="pl-smi">String</span> <span class="pl-v">msg</span>) {
+        <span class="pl-v">super</span>(msg); <span class="pl-c">// call RuntimeException's constructor with msg</span>
+        <span class="pl-c">// ...</span>
+    }
+}</pre></div>
+
+<p>Since this class's sole purpose is to wrap an already existing
+exception (<code>NullPointerException</code>) for the sake of cleanliness, we
+could have also implemented <code>isPasswordValid</code> like this</p>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">boolean</span> isPasswordValid(<span class="pl-smi">String</span> s) {
+    <span class="pl-k">try</span> {
+        <span class="pl-c">// method logic ...</span>
+    } <span class="pl-k">catch</span> (<span class="pl-smi">NullPointerException</span> e) {
+        <span class="pl-k">throw</span> NoPasswordGivenException(<span class="pl-s"><span class="pl-pds">"</span>You must give a password<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>Woah, exception inception. We've caught one exception only to throw
+another? Yes, we are wrapping a low-level exception Java provides with
+one we've made to make it clearer to the end-user.</p>
+
               </div>
             </div>
           </div>
