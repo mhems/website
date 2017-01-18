@@ -1,7 +1,10 @@
 GRIP=grip
 FLAGS=--export
 
-pages: shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html recursion.html
+pages: glossary.html shell.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html recursion.html
+
+glossary.html: glossary.md
+	$(GRIP) $(FLAGS) --title='Glossary' glossary.md
 
 shell.html: shell.md
 	$(GRIP) $(FLAGS) --title='Shell' shell.md
@@ -65,4 +68,4 @@ recursion.html: recursion.md
 
 
 clean:
-	rm -f access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html recursion.html
+	rm -f glossary.html access.html compiling.html control.html decl.html exceptions.html lambda.html null.html oop.html short.html static.html super.html generics.html testing.html types.html hello.html object.html python.html arrays.html recursion.html
