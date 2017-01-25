@@ -167,7 +167,7 @@ to raise exceptions we've written - more on that after this.
 ```java
 boolean isPasswordValid(String s) {
     if (s == null) {
-        throw NoPasswordGivenException("You must give a password");
+        throw new NoPasswordGivenException("You must give a password");
         // anything here won't be seen, no return after throwing
     }
     // s is non-null since an exception would be thrown if it were
@@ -188,7 +188,7 @@ code like this is completely unnecesary.
 ```java
 public int countNumNulls(Object[] array) {
     if (array == null) {
-        throw NullPointerException();
+        throw new NullPointerException();
     }
     // ...
 }
@@ -248,7 +248,7 @@ boolean isPasswordValid(String s) {
     try {
         // method logic ...
     } catch (NullPointerException e) {
-        throw NoPasswordGivenException("You must give a password");
+        throw new NoPasswordGivenException("You must give a password");
     }
 }
 ```
